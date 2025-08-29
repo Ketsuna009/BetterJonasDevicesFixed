@@ -66,7 +66,7 @@ internal class NightVisionRenderer: IRenderer
         var fuelLeft = Math.Max(0, stack.Attributes.GetDecimal("fuelHours"));
         if (fuelLeft <= 0) return false;
 
-        if (Config.NightVision.HiglightRange > 0)
+        if (Config.NightVision.HighlightRange > 0)
         {
             glowingEntities.Scan(api.World);
         }

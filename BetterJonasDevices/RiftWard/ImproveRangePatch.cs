@@ -16,9 +16,9 @@ internal class ImproveRangePatch
             {
                 instruction.operand = 1.0;
             }
-            if (instruction.operand?.Equals(30f) == true && Config.RiftWard.SupressionRange > 0)
+            if (instruction.operand?.Equals(30f) == true && Config.RiftWard.SuppressionRange > 0)
             {
-                instruction.operand = (float)Config.RiftWard.SupressionRange;
+                instruction.operand = (float)Config.RiftWard.SuppressionRange;
             }
             yield return instruction;
         }

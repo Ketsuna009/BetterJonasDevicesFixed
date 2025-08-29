@@ -5,12 +5,12 @@ namespace BetterJonasDevices;
 class NightVisionData
 {
     public bool OverlayEnabled = true;
-    public int HiglightRange = 64;
+    public int HighlightRange = 64;
 }
 
 class RiftWardData
 {
-    public int SupressionRange = 128;
+    public int SuppressionRange = 128;
     public int DestructionRange = 64;
     public int RestorationRange = 64;
 }
@@ -33,10 +33,14 @@ internal static class Config
         try
         {
             var data = api.LoadModConfig<ConfigData>(filename);
-            if (data == null) return;
+            if (data == null)
+            {
+                data = new();
+            }
 
             Merge(data);
-        } catch
+        } 
+        catch
         {
             api.Logger.Error($"Unable to load mod config from {filename}");
         }

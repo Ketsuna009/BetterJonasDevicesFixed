@@ -27,7 +27,7 @@ internal class GlowingEntities
             return animations != null && animations.Length > 0;
         }
 
-        var r = Config.NightVision.HiglightRange;
+        var r = Config.NightVision.HighlightRange;
         var entities = world.GetEntitiesAround(world.Player.Entity.Pos.XYZ, r, r, Filter);
         foreach (var entity in entities)
         {

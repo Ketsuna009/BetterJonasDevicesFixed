@@ -69,8 +69,13 @@ void main()
 	// Seems to give a ~8 FPS boost on an intel hd 620 when looking at the sky at 128 view distance
 	if (col.a < 0.005) discard;
 	
-	float murkiness = max(0, getSkyMurkiness() - 14*fogDensityIn);
-	col.rgb = applyUnderwaterEffects(col.rgb, murkiness);
+	float ldepth = texture(liquidDepth, gl_FragCoord.xy/frameSize.xy).r;
+	if (ldepth < gl_FragCoord.z) {
+		float murkiness = max(0, getSkyMurkiness() - 14*fogDensityIn);
+		col.rgb = applyUnderwaterEffects(col.rgb, murkiness);
+	}
+	
+	
 	
 	drawPixel(col, max(0, skyGlow.a/10 + baseBloom));
 }

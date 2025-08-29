@@ -39,7 +39,7 @@ vec4 applyLightWithoutPointLight(vec4 sunColor, vec4 blockColor, float bGlow) {
 	rgba *= max(bGlow, max(bSun, bBlock)) / ((rgba.r + rgba.g + rgba.b) / 3);
 	
 #if SHADOWQUALITY > 0
-	blockBrightness = clamp(max(bGlow, bBlock) - bSun/2, 0, 1);
+	blockBrightness = clamp(max(bGlow, bBlock) - bSun/2, 0.0, 1.0);
 #endif
 	
 	// 4. Always fully opaque
@@ -90,7 +90,7 @@ vec4 applyLight(vec3 ambientColor, vec4 lightColor, int renderFlags, vec4 worldP
 	float contrast = 1.05;	
 
 	vec3 blockLightColor = lightColor.rgb;
-	vec3 sunLightColor = lightColor.a * ambientColor.rgb;
+	vec3 sunLightColor = max(0.001, lightColor.a) * ambientColor.rgb; // Ugly fix a weird bug where deep ocean gets pitch black at a distance one lightColor.a reaches 0 or negative?
 
 #if DYNLIGHTS == 0
 	return applyLightWithoutPointLight(vec4(sunLightColor ,1), vec4(blockLightColor,1), bGlow);
@@ -130,7 +130,7 @@ vec4 applyLight(vec3 ambientColor, vec4 lightColor, int renderFlags, vec4 worldP
 	blockLight = rgba;
 	
 #if SHADOWQUALITY > 0
-	blockBrightness = clamp(max(bGlow, max(bPoint, bBlock)) - bSun/2, 0, 1);
+	blockBrightness = clamp(max(bGlow, max(bPoint, bBlock)) - bSun/2, 0.0, 1.0);
 #endif
 	
 	
@@ -143,9 +143,9 @@ vec4 applyLight(vec3 ambientColor, vec4 lightColor, int renderFlags, vec4 worldP
 	/*if (nightVisionStrength > 0)
 	{
 		vec3 nightvision = vec3(
-			clamp(rgba.r - 0.5, 0, 1) * 2, 
-			clamp(rgba.g - 0.5, 0, 1) * 1.5, 
-			clamp(rgba.b - 0.5, 0, 1) * 2
+			clamp(rgba.r - 0.5, 0.0, 1.0) * 2, 
+			clamp(rgba.g - 0.5, 0.0, 1.0) * 1.5, 
+			clamp(rgba.b - 0.5, 0.0, 1.0) * 2
 		);
 		rgba.rgb = mix(rgba.rgb, nightvision, nightVisionStrength);
 	}*/
@@ -166,13 +166,13 @@ float getFogLevel(vec4 worldPos, float fogMin, float fogDensity) {
 	float flatFog = 1 - 1 / exp(heightDiff * flatFogDensity); 
 	
 	float val = max(flatFog, distanceFog);
-	float nearnessToPlayer = clamp((8-depth)/8, 0, 0.9);
+	float nearnessToPlayer = clamp((8-depth)/8, 0.0, 0.9);
 	val = max(min(0.04, val), val - nearnessToPlayer);
 	
 	// Needs to be added after so that underwater fog still gets applied. 
 	val += fogMin; 
 		
-	return clamp(val, 0, 1);
+	return clamp(val, 0.0, 1.0);
 }
 
 
