@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch Client (Debug)",
+            "name": "Launch Client",
             "type": "coreclr",
             "request": "launch",
             "program": "${env:VINTAGE_STORY}/Vintagestory.exe",
@@ -17,11 +17,9 @@
             },
             "preLaunchTask": "build",
             "args": [
-                // "--playStyle" , "preset-surviveandbuild",
-                // "--openWorld" , "modding test world",
                 "--tracelog",
                 "--addModPath",
-                "${workspaceFolder}/BetterJonasDevices/bin/Debug/Mods"
+                "${workspaceFolder}/BetterJonasDevicesFixed/bin/Debug/Mods"
             ],
             "console": "internalConsole",
             "stopAtEntry": false
@@ -41,7 +39,7 @@
             "args": [
                 "--tracelog",
                 "--addModPath",
-                "${workspaceFolder}/BetterJonasDevices/bin/Debug/Mods"
+                "${workspaceFolder}/BetterJonasDevicesFixed/bin/Debug/Mods"
             ],
             "console": "internalConsole",
             "stopAtEntry": false

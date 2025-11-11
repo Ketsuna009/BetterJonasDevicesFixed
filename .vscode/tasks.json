@@ -9,7 +9,7 @@
                 "build",
                 "-c",
                 "Debug",
-                "${workspaceFolder}/BetterJonasDevices/BetterJonasDevices.csproj"
+                "${workspaceFolder}/BetterJonasDevicesFixed/BetterJonasDevicesFixed.csproj"
             ],
             "problemMatcher": "$msCompile"
         },
